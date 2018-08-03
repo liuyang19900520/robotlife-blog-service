@@ -4,34 +4,36 @@
 
     <resultMap id="BlogMap" type="com.liuyang19900520.robot.life.blog.java.domain.Blog">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <id column="blog_id" property="blogId" jdbcType="BIGINT"/>
-        <id column="blog_title" property="blogTitle" jdbcType="VARCHAR"/>
-        <id column="blog_content" property="blogContent" jdbcType="LONGVARCHAR"/>
-        <id column="blog_html" property="blogHtml" jdbcType="LONGVARCHAR"/>
-        <id column="tags" property="tags" jdbcType="VARCHAR"/>
-        <id column="category_id" property="categoryId" jdbcType="BIGINT"/>
-        <id column="author_id" property="authorId" jdbcType="BIGINT"/>
-        <id column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
-        <id column="create_by" property="createBy" jdbcType="BIGINT"/>
-        <id column="update_at" property="updateAt" jdbcType="TIMESTAMP"/>
-        <id column="update_by" property="updateBy" jdbcType="BIGINT"/>
-        <id column="delete_flag" property="deleteFlag" jdbcType="VARCHAR"/>
+        <result column="blog_id" property="blogId" jdbcType="BIGINT"/>
+        <result column="blog_title" property="blogTitle" jdbcType="VARCHAR"/>
+        <result column="blog_content" property="blogContent" jdbcType="LONGVARCHAR"/>
+        <result column="blog_html" property="blogHtml" jdbcType="LONGVARCHAR"/>
+        <result column="tags" property="tags" jdbcType="VARCHAR"/>
+        <result column="category_id" property="categoryId" jdbcType="BIGINT"/>
+        <result column="topic_id" property="topicId" jdbcType="BIGINT"/>
+        <result column="author_id" property="authorId" jdbcType="BIGINT"/>
+        <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+        <result column="create_by" property="createBy" jdbcType="BIGINT"/>
+        <result column="update_at" property="updateAt" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="BIGINT"/>
+        <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="TempBlogMap" type="com.liuyang19900520.robot.life.blog.java.domain.Blog">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <id column="temp_blog_id" property="blogId" jdbcType="BIGINT"/>
-        <id column="temp_blog_title" property="blogTitle" jdbcType="VARCHAR"/>
-        <id column="temp_blog_content" property="blogContent" jdbcType="LONGVARCHAR"/>
-        <id column="temp_blog_html" property="blogHtml" jdbcType="LONGVARCHAR"/>
-        <id column="temp_tags" property="tags" jdbcType="VARCHAR"/>
-        <id column="temp_category_id" property="categoryId" jdbcType="BIGINT"/>
-        <id column="temp_author_id" property="authorId" jdbcType="BIGINT"/>
-        <id column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
-        <id column="create_by" property="createBy" jdbcType="BIGINT"/>
-        <id column="update_at" property="updateAt" jdbcType="TIMESTAMP"/>
-        <id column="update_by" property="updateBy" jdbcType="BIGINT"/>
-        <id column="delete_flag" property="deleteFlag" jdbcType="VARCHAR"/>
+        <result column="temp_blog_id" property="blogId" jdbcType="BIGINT"/>
+        <result column="temp_blog_title" property="blogTitle" jdbcType="VARCHAR"/>
+        <result column="temp_blog_content" property="blogContent" jdbcType="LONGVARCHAR"/>
+        <result column="temp_blog_html" property="blogHtml" jdbcType="LONGVARCHAR"/>
+        <result column="temp_tags" property="tags" jdbcType="VARCHAR"/>
+        <result column="temp_category_id" property="categoryId" jdbcType="BIGINT"/>
+        <result column="topic_id" property="topicId" jdbcType="BIGINT"/>
+        <result column="temp_author_id" property="authorId" jdbcType="BIGINT"/>
+        <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+        <result column="create_by" property="createBy" jdbcType="BIGINT"/>
+        <result column="update_at" property="updateAt" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="BIGINT"/>
+        <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insertBlog">
@@ -39,6 +41,15 @@
         (blog_id, blog_title, blog_content, blog_html, author_id, tags,category_id,create_at, create_by, update_at, update_by, delete_flag)
         VALUES
         (#{blogId},#{blogTitle},#{blogContent},#{blogHtml},#{authorId},#{tags},#{categoryId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
+   ON DUPLICATE KEY UPDATE
+        blog_title=#{blogTitle},
+        blog_content=#{blogContent},
+        blog_html=#{blogHtml},
+        author_id=#{authorId},
+        tags=#{tags},
+        category_id=#{categoryId},
+        update_at=CURRENT_TIME,
+        update_by=#{authorId}
     </insert>
     <insert id="insertTempBlog">
 
@@ -47,14 +58,29 @@
         VALUES
         (#{blogId},#{blogTitle},#{blogContent},#{blogHtml},#{authorId},#{tags},#{categoryId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
 
+        ON DUPLICATE KEY UPDATE
+        temp_blog_title=#{blogTitle},
+        temp_blog_content=#{blogContent},
+        temp_blog_html=#{blogHtml},
+        temp_author_id=#{authorId},
+        temp_tags=#{tags},
+        temp_category_id=#{categoryId},
+        update_at=CURRENT_TIME,
+        update_by=#{authorId}
+
     </insert>
 
     <select id="selectBlogsByPage" resultMap="BlogMap">
-      SELECT
-       blog_id, blog_title, blog_content, blog_html, author_id, tags,create_at, create_by, update_at, update_by, delete_flag
-       FROM  b_blog
+        SELECT
+        blog_id, blog_title, blog_content, blog_html, author_id, tags,create_at, create_by, update_at, update_by,
+        delete_flag
+        FROM b_blog
+        WHERE 1=1
+        <if test="topicId !=null and topicId !=''">
+            AND topic_id =#{topicId}
+        </if>
 
-       ORDER by update_at DESC
+        ORDER by update_at DESC
 
     </select>
 

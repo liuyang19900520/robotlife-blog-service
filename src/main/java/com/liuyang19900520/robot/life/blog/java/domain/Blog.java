@@ -24,5 +24,6 @@ public class Blog extends BaseEntity implements Serializable {
     String tags;
     Long categoryId;
     Long authorId;
+    Long topicId;
 
 }
