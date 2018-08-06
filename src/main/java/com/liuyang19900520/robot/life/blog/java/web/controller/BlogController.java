@@ -22,13 +22,13 @@ public class BlogController {
 
 
     @PostMapping("/page")
-    @JSON(type = Blog.class, include = "blogId,blogTitle,blogContent,blogHtml,authorId,tags,createAt")
+    @JSON(type = Blog.class, include = "blogId,blogTitle,blogContent,blogHtml,authorId,tags,updateAt")
     public Object listBlogs(Blog blog, Integer pageNo, Integer rows) {
         return blogService.listBlgosByPage(blog, pageNo, rows);
     }
 
     @GetMapping("/{blogId}")
-    @JSON(type = Blog.class, include = "blogId,blogTitle,blogContent,blogHtml,authorId,tags,createAt")
+    @JSON(type = Blog.class, include = "blogId,blogTitle,blogContent,blogHtml,authorId,tags,createAt,categoryId,topicId")
     public Object findBlogs(@PathVariable("blogId") String blogId) {
         return blogService.findBlog(blogId);
     }

@@ -48,13 +48,14 @@
         author_id=#{authorId},
         tags=#{tags},
         category_id=#{categoryId},
+        topic_id=#{topicId},
         update_at=CURRENT_TIME,
         update_by=#{authorId}
     </insert>
     <insert id="insertTempBlog">
 
         INSERT INTO b_temp_blog
-        (temp_blog_id, temp_blog_title, temp_blog_content, temp_blog_html, temp_author_id, temp_tags,temp_category_id,create_at, create_by, update_at, update_by, delete_flag)
+        (temp_blog_id, temp_blog_title, temp_blog_content, temp_blog_html, temp_author_id, temp_tags,temp_category_id,,create_at, create_by, update_at, update_by, delete_flag)
         VALUES
         (#{blogId},#{blogTitle},#{blogContent},#{blogHtml},#{authorId},#{tags},#{categoryId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
 
@@ -64,6 +65,7 @@
         temp_blog_html=#{blogHtml},
         temp_author_id=#{authorId},
         temp_tags=#{tags},
+         temp_topic_id=#{topicId},
         temp_category_id=#{categoryId},
         update_at=CURRENT_TIME,
         update_by=#{authorId}
@@ -79,14 +81,12 @@
         <if test="topicId !=null and topicId !=''">
             AND topic_id =#{topicId}
         </if>
-
         ORDER by update_at DESC
-
     </select>
 
     <select id="selectBlogByKey" resultMap="BlogMap">
       SELECT
-       blog_id, blog_title, blog_content, blog_html, author_id,tags, create_at, create_by, update_at, update_by, delete_flag
+       blog_id, blog_title, blog_content, blog_html, author_id,category_id,topic_id,tags, create_at, create_by, update_at, update_by, delete_flag
        FROM  b_blog
        WHERE blog_id=#{blogId}
     </select>
