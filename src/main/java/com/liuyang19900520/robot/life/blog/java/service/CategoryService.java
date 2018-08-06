@@ -16,7 +16,10 @@ public interface CategoryService {
 
     List<Category> listCategories(Category category);
 
-    List<Blog> listBolgTitles(Long categoryId);
+    List<Blog> listBlogTitles(Long categoryId);
+
+    Boolean addCategory(Category category);
+
 
 
 }

@@ -28,6 +28,11 @@
         <id column="update_by" property="updateBy" jdbcType="BIGINT"/>
         <id column="delete_flag" property="deleteFlag" jdbcType="VARCHAR"/>
     </resultMap>
+    <insert id="insertCategory">
+
+        INSERT INTO b_category (category_id, category_content, category_rank, parent_id, create_at, create_by, update_at, update_by, delete_flag) VALUES
+        (#{categoryId},#{categoryContent},#{categoryRank},#{parentId},CURRENT_TIME,#{createBy},CURRENT_TIME,#{updateBy},'0')
+    </insert>
 
 
     <select id="selectGategories" resultMap="CategoryMap">
@@ -39,6 +44,12 @@
         SELECT blog_id,blog_title FROM b_blog
         WHERE category_id=#{categoryId}
           ORDER by update_at DESC
+
+    </select>
+    <select id="selectMaxRank" resultType="java.lang.Integer">
+
+        select max(category_rank)
+        FROM b_category;
 
     </select>
 

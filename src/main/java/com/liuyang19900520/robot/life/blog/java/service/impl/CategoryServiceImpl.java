@@ -1,5 +1,6 @@
 package com.liuyang19900520.robot.life.blog.java.service.impl;
 
+import com.liuyang19900520.robot.life.blog.java.common.util.LIdGenerator;
 import com.liuyang19900520.robot.life.blog.java.dao.CategoryDao;
 import com.liuyang19900520.robot.life.blog.java.domain.Blog;
 import com.liuyang19900520.robot.life.blog.java.domain.Category;
@@ -28,7 +29,25 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Blog> listBolgTitles(Long categoryId) {
+    public List<Blog> listBlogTitles(Long categoryId) {
         return categoryDao.selectBolgTitlesByCategoryId(categoryId);
     }
+
+    @Override
+    public Boolean addCategory(Category category) {
+
+        if (category.getCategoryId() == null) {
+            category.setCategoryId(new LIdGenerator().nextId());
+        }
+        category.setCreateBy(Long.parseLong("19900520"));
+        category.setUpdateBy(Long.parseLong("19900520"));
+        category.setCategoryRank(categoryDao.selectMaxRank());
+
+
+        return categoryDao.insertCategory(category) > 0;
+    }
+
+
 }
+
+

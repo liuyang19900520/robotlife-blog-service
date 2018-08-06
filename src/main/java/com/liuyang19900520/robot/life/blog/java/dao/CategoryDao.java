@@ -23,4 +23,8 @@ public interface CategoryDao {
 
     List<Blog> selectBolgTitlesByCategoryId(@Param("categoryId") Long cid);
 
+    Integer insertCategory(Category category);
+
+    Integer selectMaxRank();
+
 }

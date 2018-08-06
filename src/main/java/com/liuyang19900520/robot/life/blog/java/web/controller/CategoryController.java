@@ -6,10 +6,7 @@ import com.liuyang19900520.robot.life.blog.java.domain.Category;
 import com.liuyang19900520.robot.life.blog.java.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: robotlife-blog-java
@@ -34,8 +31,13 @@ public class CategoryController {
     @GetMapping("/{categoryId}")
     @JSON(type = Blog.class, include = "blogId,blogTitle")
     public Object listBlogTitles(@PathVariable Long categoryId) {
-        return categoryService.listBolgTitles(categoryId);
+        return categoryService.listBlogTitles(categoryId);
     }
 
+    @PostMapping("")
+    @ResponseBody
+    public Object addCategory(@RequestBody Category category) {
+        return categoryService.addCategory(category);
+    }
 
 }
