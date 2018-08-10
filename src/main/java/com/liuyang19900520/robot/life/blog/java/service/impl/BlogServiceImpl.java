@@ -46,11 +46,16 @@ public class BlogServiceImpl implements BlogService {
      */
     @Override
     public Boolean addBlog(Blog blog) {
+
         if (blog.getBlogId() == null) {
             blog.setBlogId(new LIdGenerator().nextId());
         }
         blog.setAuthorId(Long.parseLong("19900520"));
         Integer inInserted = blogDao.insertBlog(blog);
+
+        blogDao.deleteTempBlog(blog.getBlogId());
+
+
         return inInserted > 0;
     }
 
@@ -70,12 +75,12 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog findTempBlog(String key) {
+    public Blog findTempBlog(Long key) {
         return blogDao.selectTempBlogByKey(key);
     }
 
     @Override
-    public Blog findBlog(String key) {
+    public Blog findBlog(Long key) {
         return blogDao.selectBlogByKey(key);
     }
 

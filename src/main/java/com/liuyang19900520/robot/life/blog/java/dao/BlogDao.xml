@@ -38,9 +38,9 @@
 
     <insert id="insertBlog">
         INSERT INTO b_blog
-        (blog_id, blog_title, blog_content, blog_html, author_id, tags,category_id,create_at, create_by, update_at, update_by, delete_flag)
+        (blog_id, blog_title, blog_content, blog_html, author_id, tags,category_id,topic_id,create_at,create_by, update_at, update_by, delete_flag)
         VALUES
-        (#{blogId},#{blogTitle},#{blogContent},#{blogHtml},#{authorId},#{tags},#{categoryId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
+        (#{blogId},#{blogTitle},#{blogContent},#{blogHtml},#{authorId},#{tags},#{categoryId},#{topicId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
    ON DUPLICATE KEY UPDATE
         blog_title=#{blogTitle},
         blog_content=#{blogContent},
@@ -55,9 +55,9 @@
     <insert id="insertTempBlog">
 
         INSERT INTO b_temp_blog
-        (temp_blog_id, temp_blog_title, temp_blog_content, temp_blog_html, temp_author_id, temp_tags,temp_category_id,,create_at, create_by, update_at, update_by, delete_flag)
+        (temp_blog_id, temp_blog_title, temp_blog_content, temp_blog_html, temp_author_id, temp_tags,temp_category_id,temp_topic_id,create_at, create_by, update_at, update_by, delete_flag)
         VALUES
-        (#{blogId},#{blogTitle},#{blogContent},#{blogHtml},#{authorId},#{tags},#{categoryId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
+        (#{blogId},#{blogTitle},#{blogContent},#{blogHtml},#{authorId},#{tags},#{categoryId},#{topicId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
 
         ON DUPLICATE KEY UPDATE
         temp_blog_title=#{blogTitle},
@@ -71,6 +71,9 @@
         update_by=#{authorId}
 
     </insert>
+    <delete id="deleteTempBlog">
+      DELETE FROM b_temp_blog WHERE temp_blog_id=#{blogId}
+    </delete>
 
     <select id="selectBlogsByPage" resultMap="BlogMap">
         SELECT
@@ -97,11 +100,11 @@
     </select>
     <select id="selectTempBlogByKey" resultMap="TempBlogMap">
 
-       SELECT
-       *
-       FROM  b_temp_blog
-       WHERE temp_blog_id=#{blogId}
+    SELECT
+    *
+    FROM  b_temp_blog
+    WHERE temp_blog_id=#{blogId}
 
-    </select>
+</select>
 
 </mapper>

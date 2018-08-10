@@ -29,7 +29,7 @@ public class BlogController {
 
     @GetMapping("/{blogId}")
     @JSON(type = Blog.class, include = "blogId,blogTitle,blogContent,blogHtml,authorId,tags,createAt,categoryId,topicId")
-    public Object findBlogs(@PathVariable("blogId") String blogId) {
+    public Object findBlogs(@PathVariable("blogId") Long blogId) {
         return blogService.findBlog(blogId);
     }
 
@@ -56,7 +56,7 @@ public class BlogController {
 
     @GetMapping("/temp/{blogId}")
     @ResponseBody
-    public Object findTempBlog(@PathVariable("blogId") String blogId) {
+    public Object findTempBlog(@PathVariable("blogId") Long blogId) {
         return blogService.findTempBlog(blogId);
     }
 

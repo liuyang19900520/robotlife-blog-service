@@ -15,7 +15,7 @@ public interface BlogService {
 
     PageBean<Blog> listBlgosByPage(Blog blog, Integer pageNo, Integer rows);
 
-    Blog findBlog(String key);
+    Blog findBlog(Long key);
 
     Boolean addBlog(Blog blog);
 
@@ -23,7 +23,7 @@ public interface BlogService {
 
     List<Blog> listTempBlogs();
 
-    Blog findTempBlog(String key);
+    Blog findTempBlog(Long key);
 
 
 }

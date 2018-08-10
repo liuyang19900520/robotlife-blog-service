@@ -19,7 +19,7 @@ public interface BlogDao {
 
     List<Blog> selectBlogsByPage(Blog blog);
 
-    Blog selectBlogByKey(@Param("blogId") String key);
+    Blog selectBlogByKey(@Param("blogId") Long key);
 
     Integer insertBlog(Blog blog);
 
@@ -27,5 +27,7 @@ public interface BlogDao {
 
     List<Blog> selectTempBlogs();
 
-    Blog selectTempBlogByKey(@Param("blogId") String key);
+    Blog selectTempBlogByKey(@Param("blogId") Long key);
+
+    Integer deleteTempBlog(@Param("blogId") Long key);
 }
