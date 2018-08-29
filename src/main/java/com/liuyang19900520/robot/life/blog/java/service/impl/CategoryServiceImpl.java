@@ -1,5 +1,6 @@
 package com.liuyang19900520.robot.life.blog.java.service.impl;
 
+import com.google.common.collect.Lists;
 import com.liuyang19900520.robot.life.blog.java.common.util.LIdGenerator;
 import com.liuyang19900520.robot.life.blog.java.dao.CategoryDao;
 import com.liuyang19900520.robot.life.blog.java.domain.Blog;
@@ -43,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUpdateBy(Long.parseLong("19900520"));
         category.setCategoryRank(categoryDao.selectMaxRank());
 
-
+        Lists.newArrayList();
         return categoryDao.insertCategory(category) > 0;
     }
 
