@@ -51,6 +51,14 @@ public class BlogServiceImpl implements BlogService {
             blog.setBlogId(new LIdGenerator().nextId());
         }
         blog.setAuthorId(Long.parseLong("19900520"));
+        String summary = "";
+        if (blog.getBlogContent().length() > 150) {
+            summary = blog.getBlogContent().replaceAll("#", "").replaceAll("\n", "").substring(0, 150);
+        } else {
+            summary = blog.getBlogContent().replaceAll("#", "").replaceAll("\n", "");
+        }
+
+        blog.setBlogSummary(summary);
         Integer inInserted = blogDao.insertBlog(blog);
 
         blogDao.deleteTempBlog(blog.getBlogId());

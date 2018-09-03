@@ -6,6 +6,7 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="blog_id" property="blogId" jdbcType="BIGINT"/>
         <result column="blog_title" property="blogTitle" jdbcType="VARCHAR"/>
+        <result column="blog_summary" property="blogSummary" jdbcType="LONGVARCHAR"/>
         <result column="blog_content" property="blogContent" jdbcType="LONGVARCHAR"/>
         <result column="blog_html" property="blogHtml" jdbcType="LONGVARCHAR"/>
         <result column="tags" property="tags" jdbcType="VARCHAR"/>
@@ -38,9 +39,9 @@
 
     <insert id="insertBlog">
         INSERT INTO b_blog
-        (blog_id, blog_title, blog_content, blog_html, author_id, tags,category_id,topic_id,create_at,create_by, update_at, update_by, delete_flag)
+        (blog_id, blog_title, blog_content, blog_summary,blog_html, author_id, tags,category_id,topic_id,create_at,create_by, update_at, update_by, delete_flag)
         VALUES
-        (#{blogId},#{blogTitle},#{blogContent},#{blogHtml},#{authorId},#{tags},#{categoryId},#{topicId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
+        (#{blogId},#{blogTitle},#{blogContent},#{blogSummary},#{blogHtml},#{authorId},#{tags},#{categoryId},#{topicId},CURRENT_TIME,#{authorId},CURRENT_TIME,#{authorId},'0')
    ON DUPLICATE KEY UPDATE
         blog_title=#{blogTitle},
         blog_content=#{blogContent},
@@ -77,7 +78,7 @@
 
     <select id="selectBlogsByPage" resultMap="BlogMap">
         SELECT
-        blog_id, blog_title, blog_content, blog_html, author_id, tags,create_at, create_by, update_at, update_by,
+        blog_id, blog_title, blog_summary,blog_content, blog_html, author_id, tags,create_at, create_by, update_at, update_by,
         delete_flag
         FROM b_blog
         WHERE 1=1
@@ -89,7 +90,7 @@
 
     <select id="selectBlogByKey" resultMap="BlogMap">
       SELECT
-       blog_id, blog_title, blog_content, blog_html, author_id,category_id,topic_id,tags, create_at, create_by, update_at, update_by, delete_flag
+       blog_id, blog_title, blog_summary,blog_content, blog_html, author_id,category_id,topic_id,tags, create_at, create_by, update_at, update_by, delete_flag
        FROM  b_blog
        WHERE blog_id=#{blogId}
     </select>

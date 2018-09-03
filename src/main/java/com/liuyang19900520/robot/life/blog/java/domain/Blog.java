@@ -1,6 +1,5 @@
 package com.liuyang19900520.robot.life.blog.java.domain;
 
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,6 +19,7 @@ public class Blog extends BaseEntity implements Serializable {
     Long blogId;
     String blogTitle;
     String blogContent;
+    String blogSummary;
     String blogHtml;
     String tags;
     Long categoryId;
