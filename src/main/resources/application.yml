@@ -5,6 +5,16 @@ spring:
   profiles: blog8088
   application:
     name: robotlife-blog
+  redis:
+      host: 18.179.241.192
+      port: 6379
+      database: 0
+      lettuce:
+        pool:
+          max-active: 500
+          max-wait: 1ms
+          max-idle: 100
+          min-idle: 20
 
 eureka:
   client:
@@ -27,6 +37,16 @@ spring:
   profiles: blog8089
   application:
     name: robotlife-blog
+  redis:
+        host: 18.179.241.192
+        port: 6379
+        database: 0
+        lettuce:
+          pool:
+            max-active: 500
+            max-wait: 1ms
+            max-idle: 100
+            min-idle: 20
 
 eureka:
   client:
