@@ -33,32 +33,7 @@ public class BlogController {
         return blogService.findBlog(blogId);
     }
 
-    @PostMapping("")
-    @ResponseBody
-    public Object writeBlogs(@RequestBody Blog blog) {
-        return blogService.addBlog(blog) ? "success" : "failed";
-    }
 
-
-    @PostMapping("/temp")
-    @ResponseBody
-    public Object writeTempBlogs(@RequestBody Blog blog) {
-        return blogService.addTempBlog(blog) ? "success" : "failed";
-    }
-
-
-    @GetMapping("/temp")
-    @ResponseBody
-    public Object listTempBlogs() {
-        return blogService.listTempBlogs();
-    }
-
-
-    @GetMapping("/temp/{blogId}")
-    @ResponseBody
-    public Object findTempBlog(@PathVariable("blogId") Long blogId) {
-        return blogService.findTempBlog(blogId);
-    }
 
 
 }

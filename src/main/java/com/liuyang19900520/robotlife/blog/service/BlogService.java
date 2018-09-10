@@ -19,13 +19,7 @@ public interface BlogService {
 
     Blog findBlog(Long key);
 
-    Boolean addBlog(Blog blog);
 
-    Boolean addTempBlog(Blog blog);
-
-    List<Blog> listTempBlogs();
-
-    Blog findTempBlog(Long key);
 
 
 }

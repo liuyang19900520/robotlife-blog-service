@@ -29,8 +29,8 @@ public enum Messages {
     USER_SIGN_IN_SUCCESS(10009, "注册登录成功"),
     USER_SIGN_IN_FAILED(10008, "注册登录失败"),
 
-    JWT_TOKEN_AUTH_FAILED(900021, "JWT TOKEN 认证失败");
-
+    JWT_TOKEN_AUTH_FAILED(900021, "JWT TOKEN 认证失败"),
+    JWT_TOKEN_AUTH_SUCCESS(900022, "JWT TOKEN 认证成功");
 
     private final int value;
 

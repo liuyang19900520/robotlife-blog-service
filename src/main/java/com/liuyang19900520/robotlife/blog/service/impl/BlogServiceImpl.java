@@ -42,54 +42,7 @@ public class BlogServiceImpl implements BlogService {
         return result;
     }
 
-    /**
-     * Add blog
-     *
-     * @param blog
-     * @return isInserted
-     */
-    @Override
-    public Boolean addBlog(Blog blog) {
 
-        if (blog.getBlogId() == null) {
-            blog.setBlogId(new LIdGenerator().nextId());
-        }
-        blog.setAuthorId(Long.parseLong("19900520"));
-        String summary = "";
-        if (blog.getBlogContent().length() > 150) {
-            summary = blog.getBlogContent().replaceAll("#", "").replaceAll("\n", "").substring(0, 150);
-        } else {
-            summary = blog.getBlogContent().replaceAll("#", "").replaceAll("\n", "");
-        }
-
-        blog.setBlogSummary(summary);
-        Integer inInserted = blogDao.insertBlog(blog);
-
-        blogDao.deleteTempBlog(blog.getBlogId());
-
-
-        return inInserted > 0;
-    }
-
-    @Override
-    public Boolean addTempBlog(Blog blog) {
-        if (blog.getBlogId() == null) {
-            blog.setBlogId(new LIdGenerator().nextId());
-        }
-        blog.setAuthorId(Long.parseLong("19900520"));
-        Integer inInserted = blogDao.insertTempBlog(blog);
-        return inInserted > 0;
-    }
-
-    @Override
-    public List<Blog> listTempBlogs() {
-        return blogDao.selectTempBlogs();
-    }
-
-    @Override
-    public Blog findTempBlog(Long key) {
-        return blogDao.selectTempBlogByKey(key);
-    }
 
     @Override
     public Blog findBlog(Long key) {
