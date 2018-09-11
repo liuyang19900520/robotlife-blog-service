@@ -2,11 +2,10 @@ server:
   port: 8088
 
 spring:
-  profiles: blog8088
   application:
     name: robotlife-blog
   redis:
-      host: 18.179.241.192
+      host: 18.182.147.149
       port: 6379
       database: 0
       lettuce:
@@ -26,36 +25,3 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
-
-
-
----
-server:
-  port: 8089
-
-spring:
-  profiles: blog8089
-  application:
-    name: robotlife-blog
-  redis:
-        host: 18.179.241.192
-        port: 6379
-        database: 0
-        lettuce:
-          pool:
-            max-active: 500
-            max-wait: 1ms
-            max-idle: 100
-            min-idle: 20
-
-eureka:
-  client:
-    healthcheck:
-      enabled: true
-    serviceUrl:
-      defaultZone: http://liuyang19900520:123456@localhost:8761/eureka
-
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
-
